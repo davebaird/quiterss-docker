@@ -1,0 +1,28 @@
+#!/bin/bash
+
+data_dir="$HOME"/.local/share/QuiteRss.docker/QuiteRss
+conf_dir="$HOME"/.config/QuiteRss.docker
+
+mkdir -p "$data_dir" "$conf_dir"
+
+args=(
+    --name "quiterss"
+
+    --init
+    -it --rm
+    --privileged
+
+    --volume /tmp/.X11-unix:/tmp/.X11-unix
+    --volume "$HOME"/.Xauthority:/home/user/.Xauthority
+
+    --volume "$data_dir":/home/user/.local/share/QuiteRss/QuiteRss
+    --volume "$conf_dir":/home/user/.config/QuiteRss
+
+    --env DISPLAY
+
+    --env="QT_X11_NO_MITSHM=1"
+
+    # --env USER_ID="$(id -u)"
+)
+
+docker run "${args[@]}" quiterss
