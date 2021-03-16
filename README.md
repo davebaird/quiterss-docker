@@ -1,7 +1,6 @@
 # QuiteRss newsreader docker image
 
-This image uses your own X server to display the reader, so
-I have no idea how to make it work on Windows.
+This image uses your own X server to display the reader.
 
 Build the container thusly:
 
@@ -26,4 +25,4 @@ $ mv ~/.local/share/QuiteRss/QuiteRss/feeds.db ~/.local/share/QuiteRss.docker/Qu
 
 This also works if your `feeds.db` file comes from Windows.
 
-If you have any configuration you want to bring over from another QuiteRss installation, edit the config file at `"$HOME"/.config/QuiteRss.docker/QuiteRss`
+If you have any configuration you want to bring over from another QuiteRss installation, edit the config file at `"$HOME"/.config/QuiteRss.docker/QuiteRss.ini`
