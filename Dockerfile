@@ -13,6 +13,8 @@ RUN apt-get update && apt-get -y install software-properties-common \
  && rm -rf /var/cache/apt/archives/* \
  && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get -y install autocutsel
+
 USER 1000
 
 RUN mkdir -p /headless/.local/share/data/QuiteRss/QuiteRss /headless/.config/QuiteRss
