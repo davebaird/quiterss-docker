@@ -5,24 +5,27 @@ conf_dir="$HOME"/.config/QuiteRss.docker
 
 mkdir -p "$data_dir" "$conf_dir"
 
+QRSS_DISPLAY=99
+
 args=(
     --name "quiterss"
 
     --init
-    -it --rm
-    --privileged
+    -i
+    --rm
 
-    --volume /tmp/.X11-unix:/tmp/.X11-unix
-    --volume "$HOME"/.Xauthority:/home/user/.Xauthority
+    -p $((5900 + QRSS_DISPLAY)):5901
 
-    --volume "$data_dir":/home/user/.local/share/QuiteRss/QuiteRss
-    --volume "$conf_dir":/home/user/.config/QuiteRss
+    --env VNC_RESOLUTION=1850x1000
 
-    --env DISPLAY
+    --user "$(id -u)":"$(id -g)"
 
-    --env="QT_X11_NO_MITSHM=1"
-
-    # --env USER_ID="$(id -u)"
+    --volume "$data_dir":/headless/.local/share/data/QuiteRss/QuiteRss
+    --volume "$conf_dir":/headless/.config/QuiteRss
 )
 
-docker run "${args[@]}" quiterss
+docker run "${args[@]}" quiterss &
+
+sleep 3
+
+vncviewer -passwd <(vncpasswd -f <<<"vncpassword") :"$QRSS_DISPLAY"

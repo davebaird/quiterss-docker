@@ -1,7 +1,11 @@
-FROM ubuntu:14.04
-# Doesn't work on later ubuntus - I think problems with Qt and/or openssl versions
+FROM consol/ubuntu-xfce-vnc
+# https://github.com/ConSol/docker-headless-vnc-container
 
 # docker build -t quiterss .
+
+# docker run -it --rm -p 5999:5901 quiterss bash
+
+USER 0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -13,17 +17,16 @@ RUN apt-get update && apt-get -y install software-properties-common \
  && rm -rf /var/cache/apt/archives/* \
  && rm -rf /var/lib/apt/lists/*
 
-# RUN apt-get update && apt-get -y install sudo mesa-utils
+# RUN apt-get update && apt-get -y install sudo
 
 # COPY rootfs /
 
-RUN useradd --no-log-init --create-home --shell /bin/bash --comment "" --uid 1000 --user-group user
+# RUN useradd --no-log-init --create-home --shell /bin/bash --comment "" --uid 1000 --user-group user \
+#  && echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-ENV QT_XKB_CONFIG_ROOT /usr/share/X11/xkb
+USER 1000
 
-USER user
+RUN mkdir -p /headless/.local/share/data/QuiteRss/QuiteRss /headless/.config/QuiteRss
 
-RUN mkdir -p /home/user/.local/share/QuiteRss/QuiteRss /home/user/.config/QuiteRss
+CMD ["/usr/bin/quiterss"]
 
-# ENTRYPOINT ["/entrypoint.sh"]
-ENTRYPOINT ["/usr/bin/quiterss"]
