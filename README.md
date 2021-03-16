@@ -4,7 +4,7 @@ This image uses your own X server to display the QuiteRss newsreader on your des
 
 ## Persistence
 
-Config data and the feeds database and other bits and pieces are stored in your home directory. This means the docker image must have read/write access. If your UID happens to be 1000, you are good to go. For any other UID, you need to edit the Dockerfile `RUN useradd` line to match your UID.
+Config data and the feeds database and other bits and pieces are stored in your home directory. This means the container must have read/write access. If your UID happens to be 1000, you are good to go. For any other UID, you need to edit the Dockerfile `RUN useradd` line to match your UID.
 
 ## Building
 
