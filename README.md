@@ -18,9 +18,11 @@ The startup script refers to the image by name, so you need to use the same name
 
 Launch the container using the included startup script `d.start.quiterss`
 
-## Display
+## Display and resolution
 
 The container uses display 99. You can change that by editing `QRSS_DISPLAY` at the top of `d.start.quiterss`.
+
+You can modify the resolution by editing `VNC_RESOLUTION` in `d.start.quiterss`.
 
 ### First run
 
